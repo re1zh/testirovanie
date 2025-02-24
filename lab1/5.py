@@ -1,12 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 import random
 import string
-
+import sys
 
 def generate_random_string(length):
-    if length < 4:
-        return "Ошибка! Длина должна быть минимум 4 символа."
-
     digits = random.choice(string.digits)
     uppercase = random.choice(string.ascii_uppercase)
     lowercase = random.choice(string.ascii_lowercase)
@@ -20,7 +17,6 @@ def generate_random_string(length):
     random.shuffle(result_list)
 
     return "".join(result_list)
-
 
 def create_image_with_text(text, width=720, height=360):
     image = Image.new('RGB', (width, height), "white")
@@ -51,10 +47,26 @@ def create_image_with_text(text, width=720, height=360):
     return image
 
 
-length = int(input("Введите длину строки: "))
-random_string = generate_random_string(length)
 try:
-    image = create_image_with_text(random_string)
-    image.show()
-except ValueError as e:
+    user_input = input()
+    length = int(user_input)
+except ValueError:
+    print("Ошибка! Длина должна быть целым числом.")
+    sys.exit(1)
+
+if length < 4:
+    print("Ошибка! Длина должна быть минимум 4 символа.")
+    sys.exit(1)
+
+try:
+    rand_str = generate_random_string(length)
+except Exception as e:
     print(e)
+    sys.exit(1)
+
+try:
+    img = create_image_with_text(rand_str)
+    img.show()
+except Exception as e:
+    print(e)
+    sys.exit(1)

@@ -1,7 +1,6 @@
 import random
 import string
 
-
 def generate_random_string(length):
     if length < 4:
         return "Ошибка! Длина должна быть минимум 4 символа."
@@ -19,7 +18,6 @@ def generate_random_string(length):
     random.shuffle(result_list)
 
     return "".join(result_list)
-
 
 try:
     length = int(input())
